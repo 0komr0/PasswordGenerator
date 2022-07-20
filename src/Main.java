@@ -1,4 +1,6 @@
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -6,8 +8,8 @@ public class Main {
         FileManager fileManager = new FileManager();
         PasswordGenerator genPass = new PasswordGenerator();
         fileManager.importPasswords("C:\\Users\\Admin\\Desktop\\PasswordGenerator\\words.txt");
-     /* String password = genPass.generatePassword(FileManager.listOfWords);
-        fileManager.exportPassword(password); */
+        List<String> finalOutcome = genPass.generateMultiplePasswords(fileManager.getMapOfWords());
+        fileManager.exportPassword(finalOutcome);
     }
 
 }

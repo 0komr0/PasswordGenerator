@@ -7,7 +7,11 @@ public class FileManager {
 
 
 
-    Map<Integer, List<String>> mapOfWords = new HashMap<>();
+    private Map<Integer, List<String>> mapOfWords = new HashMap<>();
+
+    public Map<Integer, List<String>> getMapOfWords() {
+        return mapOfWords;
+    }
 
     public void importPasswords(String path) throws FileNotFoundException {
         File file = new File(path);
@@ -18,18 +22,23 @@ public class FileManager {
             i++;
 
         }
-        System.out.println(mapOfWords);
+
     }
-    public void exportPassword(String password) {
+    public void exportPassword(List<String> listOfPasswords) {
         try {
+
             PrintWriter out = new PrintWriter("finalPassword.txt");
-            out.println("Your password generated with using of random words is: ");
-            out.println(password);
+            out.println("Your passwords generated with using of random words is: ");
+            for(String password : listOfPasswords) {
+                out.println(password);
+            }
             out.println("don't show it to anyone ;)))) ");
             out.close();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+
+
     }
 
 }

@@ -1,8 +1,18 @@
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class PasswordGenerator {
+
+    public List generateMultiplePasswords(Map<Integer, List<String>> mapOfWords){
+
+     List<String> listOfPasswords = new ArrayList<>();
+
+        for(Map.Entry listOfWords : mapOfWords.entrySet()){
+           listOfPasswords.add(generatePassword((List<String>) listOfWords.getValue()));
+
+        }
+        return listOfPasswords;
+    }
+
     public String generatePassword(List<String> listOfWords) {
         Collections.shuffle(listOfWords);
         int size = listOfWords.size();
