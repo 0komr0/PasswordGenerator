@@ -8,10 +8,7 @@ public class FileManager {
 
 
     private static Map<Integer, List<String>> mapOfWords = new HashMap<>();
-
-    public Map<Integer, List<String>> getMapOfWords() {
-        return mapOfWords;
-    }
+    private static Scanner regexInput = new Scanner(System.in);
 
     public void importPasswords(String path) throws FileNotFoundException {
         String delimiter = userRegexInput();
@@ -22,9 +19,10 @@ public class FileManager {
             lines.add((sc.nextLine()));
         }
         boolean check = isDelimiterPresent(delimiter, lines);
-        if(check == true){
+        if (check == true) {
             addWordsToMap(delimiter, lines);
-        } else{
+            regexInput.close();
+        } else {
             System.out.println("Sorry! Your delimiter isn't there :/ ");
             importPasswords(path);
         }
@@ -32,7 +30,6 @@ public class FileManager {
 
     public void exportPassword(List<String> listOfPasswords) {
         try {
-
             PrintWriter out = new PrintWriter("finalPassword.txt");
             out.println("Your passwords generated with using of random words is: ");
             for (String password : listOfPasswords) {
@@ -45,6 +42,10 @@ public class FileManager {
         }
     }
 
+    public Map<Integer, List<String>> getMapOfWords() {
+        return mapOfWords;
+    }
+
     public static Boolean isDelimiterPresent(String delimiter, List<String> lines) {
         for (String line : lines) {
             if (!line.contains(delimiter)) {
@@ -53,22 +54,15 @@ public class FileManager {
         }
         return true;
     }
-    public static void addWordsToMap(String delimiter, List<String> lines){
-        for(int i = 0; i<lines.size(); i++){
+
+    public static void addWordsToMap(String delimiter, List<String> lines) {
+        for (int i = 0; i < lines.size(); i++) {
             mapOfWords.put(i, Arrays.asList(lines.get(i).split(delimiter)));
         }
     }
-    public static String userRegexInput(){
-        System.out.println("Input delimiter used in file: ");
-        String regex = "";
-        try {
-            Scanner regexInput = new Scanner(System.in);
-            regex = regexInput.nextLine();
-            regexInput.close();
 
-        }catch (NoSuchElementException ex){
-            System.out.println(ex);
-        }
-        return regex;
+    public static String userRegexInput() {
+        System.out.println("Input delimiter used in file: ");
+        return regexInput.nextLine();
     }
 }
